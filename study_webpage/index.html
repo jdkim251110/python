@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>HTML/CSS/JS 공부 페이지</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <h1>HTML/CSS/JS 빠른 학습</h1>
+    <p class="tagline">기초 개념 + 실습 예제 + 인터랙티브 퀴즈</p>
+  </header>
+
+  <main class="container">
+    <section id="html" class="card">
+      <h2>HTML5 기초</h2>
+      <p>HTML은 웹 페이지의 구조를 정의합니다. 아래는 기본 문서 구조 예시입니다.</p>
+      <pre><code class="code">&lt;!doctype html&gt;
+&lt;html lang="ko"&gt;
+  &lt;head&gt;
+    &lt;meta charset="utf-8"&gt;
+    &lt;title&gt;문서 제목&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;h1&gt;안녕하세요&lt;/h1&gt;
+  &lt;/body&gt;
+&lt;/html&gt;</code></pre>
+    </section>
+
+    <section id="css" class="card">
+      <h2>CSS3 기초</h2>
+      <p>CSS는 스타일을 적용합니다. 선택자 예시:</p>
+      <pre><code class="code">h1 { color: #2a9d8f; }
+.container { max-width: 900px; margin: 0 auto; }</code></pre>
+    </section>
+
+    <section id="js" class="card">
+      <h2>JavaScript 기초</h2>
+      <p>JavaScript로 DOM을 조작하고 이벤트를 처리할 수 있습니다.</p>
+      <pre><code class="code">document.getElementById('btn').addEventListener('click', function(){
+  alert('버튼 클릭!');
+});</code></pre>
+      <button id="btn" class="btn">예제 버튼</button>
+    </section>
+
+    <section id="quiz" class="card">
+      <h2>간단한 퀴즈</h2>
+      <div id="quiz-area">
+        <p id="question">HTML은 무엇을 정의하나요?</p>
+        <ul id="choices">
+          <li><button class="choice">A: 스타일</button></li>
+          <li><button class="choice">B: 구조</button></li>
+          <li><button class="choice">C: 데이터베이스</button></li>
+        </ul>
+        <p id="result" class="result"></p>
+      </div>
+    </section>
+
+    <section id="live" class="card">
+      <h2>라이브 편집기 (간단)</h2>
+      <p>아래에 HTML을 입력하고 미리보기를 확인하세요.</p>
+      <textarea id="editor" rows="6">&lt;h2&gt;Hello&lt;/h2&gt;&lt;p&gt;이곳에 내용을 입력하세요.&lt;/p&gt;</textarea>
+      <div id="preview" class="preview"></div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>간단한 학습 페이지 — 로컬에서 열어볼 수 있습니다.</p>
+  </footer>
+
+  <script src="js/script.js"></script>
+</body>
+</html>

@@ -1,0 +1,929 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>웹 기초 공부 - HTML5, CSS3, JavaScript</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+        }
+
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        header p {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+
+        nav {
+            background: #f8f9fa;
+            padding: 0;
+            display: flex;
+            flex-wrap: wrap;
+            border-bottom: 1px solid #dee2e6;
+        }
+
+        nav button {
+            flex: 1;
+            min-width: 150px;
+            padding: 15px 20px;
+            border: none;
+            background: transparent;
+            cursor: pointer;
+            font-size: 1em;
+            font-weight: 600;
+            color: #495057;
+            transition: all 0.3s ease;
+            border-bottom: 3px solid transparent;
+        }
+
+        nav button:hover {
+            background: #e9ecef;
+            border-bottom-color: #667eea;
+            color: #667eea;
+        }
+
+        nav button.active {
+            background: white;
+            border-bottom-color: #667eea;
+            color: #667eea;
+        }
+
+        .content {
+            padding: 40px;
+            min-height: 500px;
+        }
+
+        .section {
+            display: none;
+        }
+
+        .section.active {
+            display: block;
+            animation: fadeIn 0.3s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        h2 {
+            color: #667eea;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+            border-bottom: 2px solid #667eea;
+            padding-bottom: 10px;
+        }
+
+        h3 {
+            color: #764ba2;
+            margin-top: 25px;
+            margin-bottom: 12px;
+            font-size: 1.3em;
+        }
+
+        p, li {
+            color: #495057;
+            line-height: 1.8;
+            margin-bottom: 12px;
+            font-size: 1em;
+        }
+
+        ul, ol {
+            margin-left: 30px;
+            margin-bottom: 15px;
+        }
+
+        code {
+            background: #f8f9fa;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            color: #e83e8c;
+        }
+
+        .code-block {
+            background: #282c34;
+            color: #abb2bf;
+            padding: 20px;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 15px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+            line-height: 1.6;
+        }
+
+        .code-block .tag {
+            color: #e06c75;
+        }
+
+        .code-block .attr {
+            color: #d19a66;
+        }
+
+        .code-block .value {
+            color: #98c379;
+        }
+
+        .code-block .comment {
+            color: #5c6370;
+        }
+
+        .interactive-demo {
+            background: #f8f9fa;
+            border-left: 4px solid #667eea;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+
+        .demo-title {
+            font-weight: 600;
+            color: #667eea;
+            margin-bottom: 15px;
+            font-size: 1.1em;
+        }
+
+        input[type="text"],
+        input[type="number"],
+        input[type="color"],
+        select,
+        textarea {
+            padding: 10px;
+            border: 2px solid #dee2e6;
+            border-radius: 5px;
+            font-size: 1em;
+            font-family: inherit;
+            margin: 8px 0;
+            width: 100%;
+            max-width: 300px;
+            transition: border-color 0.3s;
+        }
+
+        input[type="text"]:focus,
+        input[type="number"]:focus,
+        input[type="color"]:focus,
+        select:focus,
+        textarea:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        button {
+            padding: 10px 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1em;
+            font-weight: 600;
+            transition: transform 0.2s, box-shadow 0.2s;
+            margin: 8px 0;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        .result-box {
+            background: white;
+            border: 2px solid #dee2e6;
+            padding: 15px;
+            border-radius: 5px;
+            margin-top: 15px;
+            min-height: 60px;
+            display: flex;
+            align-items: center;
+            font-weight: 600;
+            color: #495057;
+        }
+
+        .box-example {
+            width: 100px;
+            height: 100px;
+            background: #667eea;
+            margin: 15px 0;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .box-example:hover {
+            background: #764ba2;
+            transform: scale(1.1);
+        }
+
+        .grid-demo {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 10px;
+            margin: 15px 0;
+        }
+
+        .grid-item {
+            background: #667eea;
+            color: white;
+            padding: 20px;
+            border-radius: 5px;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        .progress-bar {
+            background: #e9ecef;
+            border-radius: 10px;
+            height: 20px;
+            margin: 15px 0;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            height: 100%;
+            width: 0%;
+            transition: width 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 0.8em;
+            font-weight: 600;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+        }
+
+        table th {
+            background: #667eea;
+            color: white;
+            padding: 12px;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        table td {
+            padding: 12px;
+            border-bottom: 1px solid #dee2e6;
+        }
+
+        table tr:hover {
+            background: #f8f9fa;
+        }
+
+        .info-box {
+            background: #d1ecf1;
+            border-left: 4px solid #0c5460;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+            color: #0c5460;
+        }
+
+        .warning-box {
+            background: #fff3cd;
+            border-left: 4px solid #856404;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+            color: #856404;
+        }
+
+        .success-box {
+            background: #d4edda;
+            border-left: 4px solid #155724;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+            color: #155724;
+        }
+
+        footer {
+            background: #f8f9fa;
+            padding: 30px;
+            text-align: center;
+            color: #6c757d;
+            border-top: 1px solid #dee2e6;
+        }
+
+        footer p {
+            margin-bottom: 8px;
+        }
+
+        .skill-level {
+            display: flex;
+            gap: 8px;
+            margin: 15px 0;
+        }
+
+        .skill-star {
+            font-size: 1.5em;
+            cursor: pointer;
+            color: #ddd;
+            transition: color 0.2s;
+        }
+
+        .skill-star:hover,
+        .skill-star.active {
+            color: #ffc107;
+        }
+
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 1.8em;
+            }
+
+            nav {
+                flex-direction: column;
+            }
+
+            nav button {
+                border-bottom: none;
+                border-right: 3px solid transparent;
+            }
+
+            nav button:hover,
+            nav button.active {
+                border-right-color: #667eea;
+                border-bottom-color: transparent;
+            }
+
+            .content {
+                padding: 20px;
+            }
+
+            .grid-demo {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🎓 웹 기초 공부</h1>
+            <p>HTML5, CSS3, JavaScript 학습용 인터랙티브 튜토리얼</p>
+        </header>
+
+        <nav>
+            <button class="nav-btn active" data-section="html">HTML5</button>
+            <button class="nav-btn" data-section="css">CSS3</button>
+            <button class="nav-btn" data-section="javascript">JavaScript</button>
+            <button class="nav-btn" data-section="demo">실습 예제</button>
+        </nav>
+
+        <div class="content">
+            <!-- HTML5 섹션 -->
+            <div id="html" class="section active">
+                <h2>📄 HTML5 학습</h2>
+
+                <h3>HTML이란?</h3>
+                <p><code>HTML (HyperText Markup Language)</code>은 웹 페이지의 구조를 정의하는 마크업 언어입니다.</p>
+
+                <h3>기본 문서 구조</h3>
+                <div class="code-block">
+&lt;!DOCTYPE html&gt;<br>
+&lt;html lang=<span class="value">"ko"</span>&gt;<br>
+&nbsp;&nbsp;&lt;head&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;title&gt;페이지 제목&lt;/title&gt;<br>
+&nbsp;&nbsp;&lt;/head&gt;<br>
+&nbsp;&nbsp;&lt;body&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;h1&gt;제목&lt;/h1&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;p&gt;본문&lt;/p&gt;<br>
+&nbsp;&nbsp;&lt;/body&gt;<br>
+&lt;/html&gt;
+                </div>
+
+                <h3>주요 태그들</h3>
+                <table>
+                    <tr>
+                        <th>태그</th>
+                        <th>설명</th>
+                        <th>예시</th>
+                    </tr>
+                    <tr>
+                        <td>&lt;h1&gt; ~ &lt;h6&gt;</td>
+                        <td>제목 (h1이 가장 큼)</td>
+                        <td>&lt;h1&gt;큰 제목&lt;/h1&gt;</td>
+                    </tr>
+                    <tr>
+                        <td>&lt;p&gt;</td>
+                        <td>단락</td>
+                        <td>&lt;p&gt;본문 내용&lt;/p&gt;</td>
+                    </tr>
+                    <tr>
+                        <td>&lt;a&gt;</td>
+                        <td>하이퍼링크</td>
+                        <td>&lt;a href=<span class="value">"url"</span>&gt;링크&lt;/a&gt;</td>
+                    </tr>
+                    <tr>
+                        <td>&lt;img&gt;</td>
+                        <td>이미지</td>
+                        <td>&lt;img src=<span class="value">"image.jpg"</span>&gt;</td>
+                    </tr>
+                    <tr>
+                        <td>&lt;ul&gt; / &lt;ol&gt;</td>
+                        <td>목록 (순서 없음/있음)</td>
+                        <td>&lt;li&gt;항목&lt;/li&gt;</td>
+                    </tr>
+                    <tr>
+                        <td>&lt;div&gt;</td>
+                        <td>구획 나누기</td>
+                        <td>&lt;div&gt;컨텐츠&lt;/div&gt;</td>
+                    </tr>
+                </table>
+
+                <h3>시맨틱 태그 (Semantic Tags)</h3>
+                <p>HTML5에서 추가된 의미 있는 태그들:</p>
+                <ul>
+                    <li><code>&lt;header&gt;</code> - 헤더 영역</li>
+                    <li><code>&lt;nav&gt;</code> - 네비게이션</li>
+                    <li><code>&lt;article&gt;</code> - 독립적인 컨텐츠</li>
+                    <li><code>&lt;section&gt;</code> - 섹션 구분</li>
+                    <li><code>&lt;aside&gt;</code> - 사이드바</li>
+                    <li><code>&lt;footer&gt;</code> - 푸터 영역</li>
+                </ul>
+
+                <div class="info-box">
+                    💡 <strong>팁:</strong> 시맨틱 태그를 사용하면 검색 엔진이 웹 페이지를 더 잘 이해할 수 있습니다.
+                </div>
+            </div>
+
+            <!-- CSS3 섹션 -->
+            <div id="css" class="section">
+                <h2>🎨 CSS3 학습</h2>
+
+                <h3>CSS란?</h3>
+                <p><code>CSS (Cascading Style Sheets)</code>는 HTML 요소의 스타일을 정의하는 언어입니다.</p>
+
+                <h3>CSS 적용 방법</h3>
+                <div class="code-block">
+<span class="comment">/* 1. 인라인 스타일 */</span><br>
+&lt;p style=<span class="value">"color: blue;"</span>&gt;텍스트&lt;/p&gt;<br>
+<br>
+<span class="comment">/* 2. 내부 스타일 시트 */</span><br>
+&lt;style&gt;<br>
+&nbsp;&nbsp;p { color: blue; }<br>
+&lt;/style&gt;<br>
+<br>
+<span class="comment">/* 3. 외부 스타일 시트 */</span><br>
+&lt;link rel=<span class="value">"stylesheet"</span> href=<span class="value">"style.css"</span>&gt;
+                </div>
+
+                <h3>선택자 (Selectors)</h3>
+                <table>
+                    <tr>
+                        <th>선택자</th>
+                        <th>설명</th>
+                        <th>예시</th>
+                    </tr>
+                    <tr>
+                        <td>요소</td>
+                        <td>특정 태그의 모든 요소</td>
+                        <td>p { }</td>
+                    </tr>
+                    <tr>
+                        <td>클래스</td>
+                        <td>특정 클래스의 요소</td>
+                        <td>.box { }</td>
+                    </tr>
+                    <tr>
+                        <td>ID</td>
+                        <td>특정 ID의 요소 (유일)</td>
+                        <td>#header { }</td>
+                    </tr>
+                    <tr>
+                        <td>속성</td>
+                        <td>특정 속성을 가진 요소</td>
+                        <td>input[type="text"] { }</td>
+                    </tr>
+                    <tr>
+                        <td>조합</td>
+                        <td>하위, 자식 요소</td>
+                        <td>div p { } / div > p { }</td>
+                    </tr>
+                </table>
+
+                <h3>자주 사용하는 속성들</h3>
+                <ul>
+                    <li><code>color</code> - 텍스트 색상</li>
+                    <li><code>background</code> - 배경색/이미지</li>
+                    <li><code>font-size</code> - 글꼴 크기</li>
+                    <li><code>padding</code> - 내부 여백</li>
+                    <li><code>margin</code> - 외부 여백</li>
+                    <li><code>border</code> - 테두리</li>
+                    <li><code>display</code> - 표시 방식 (block, inline, flex, grid)</li>
+                </ul>
+
+                <h3>Flexbox 레이아웃</h3>
+                <div class="code-block">
+.container {<br>
+&nbsp;&nbsp;display: flex;<br>
+&nbsp;&nbsp;justify-content: center; <span class="comment">/* 수평 정렬 */</span><br>
+&nbsp;&nbsp;align-items: center; <span class="comment">/* 수직 정렬 */</span><br>
+&nbsp;&nbsp;gap: 10px;<br>
+}
+                </div>
+
+                <div class="success-box">
+                    ✅ <strong>CSS3의 주요 기능:</strong> Flexbox, Grid, Animation, Transform, Gradient 등으로 더 강력한 스타일링이 가능합니다.
+                </div>
+            </div>
+
+            <!-- JavaScript 섹션 -->
+            <div id="javascript" class="section">
+                <h2>⚙️ JavaScript 학습</h2>
+
+                <h3>JavaScript란?</h3>
+                <p><code>JavaScript</code>는 웹 페이지에 동적인 기능을 추가하는 프로그래밍 언어입니다.</p>
+
+                <h3>기본 문법</h3>
+                <div class="code-block">
+<span class="comment">// 변수 선언</span><br>
+let name = <span class="value">"홍길동"</span>;<br>
+const age = 25;<br>
+var city = <span class="value">"서울"</span>;<br>
+<br>
+<span class="comment">// 데이터 타입</span><br>
+let number = 42; <span class="comment">// 숫자</span><br>
+let text = <span class="value">"문자열"</span>; <span class="comment">// 문자열</span><br>
+let flag = true; <span class="comment">// 불린</span><br>
+let arr = [1, 2, 3]; <span class="comment">// 배열</span><br>
+let obj = { key: <span class="value">"value"</span> }; <span class="comment">// 객체</span>
+                </div>
+
+                <h3>조건문과 반복문</h3>
+                <div class="code-block">
+<span class="comment">// if문</span><br>
+if (age > 18) {<br>
+&nbsp;&nbsp;console.log(<span class="value">"성인"</span>);<br>
+} else {<br>
+&nbsp;&nbsp;console.log(<span class="value">"미성년자"</span>);<br>
+}<br>
+<br>
+<span class="comment">// for문</span><br>
+for (let i = 0; i &lt; 5; i++) {<br>
+&nbsp;&nbsp;console.log(i);<br>
+}
+                </div>
+
+                <h3>함수 (Functions)</h3>
+                <div class="code-block">
+<span class="comment">// 함수 선언</span><br>
+function add(a, b) {<br>
+&nbsp;&nbsp;return a + b;<br>
+}<br>
+<br>
+<span class="comment">// 화살표 함수</span><br>
+const multiply = (x, y) => x * y;
+                </div>
+
+                <h3>DOM 조작</h3>
+                <div class="code-block">
+<span class="comment">// 요소 선택</span><br>
+let element = document.getElementById(<span class="value">"myId"</span>);<br>
+let elements = document.querySelectorAll(<span class="value">".myClass"</span>);<br>
+<br>
+<span class="comment">// 내용 변경</span><br>
+element.textContent = <span class="value">"새로운 내용"</span>;<br>
+element.innerHTML = <span class="value">"&lt;strong&gt;HTML&lt;/strong&gt;"</span>;<br>
+<br>
+<span class="comment">// 스타일 변경</span><br>
+element.style.color = <span class="value">"blue"</span>;<br>
+element.classList.add(<span class="value">"active"</span>);
+                </div>
+
+                <h3>이벤트 처리</h3>
+                <div class="code-block">
+<span class="comment">// 클릭 이벤트</span><br>
+button.addEventListener(<span class="value">"click"</span>, function() {<br>
+&nbsp;&nbsp;console.log(<span class="value">"버튼 클릭됨"</span>);<br>
+});<br>
+<br>
+<span class="comment">// 입력 이벤트</span><br>
+input.addEventListener(<span class="value">"input"</span>, function(event) {<br>
+&nbsp;&nbsp;console.log(event.target.value);<br>
+});
+                </div>
+
+                <div class="warning-box">
+                    ⚠️ <strong>주의:</strong> 변수는 let (권장), const, var 중 하나를 선택합니다. let과 const의 사용을 권장합니다.
+                </div>
+            </div>
+
+            <!-- 실습 예제 섹션 -->
+            <div id="demo" class="section">
+                <h2>🔧 실습 예제</h2>
+
+                <h3>1️⃣ 텍스트 변환 (JavaScript)</h3>
+                <div class="interactive-demo">
+                    <div class="demo-title">입력한 텍스트를 대문자/소문자로 변환</div>
+                    <input type="text" id="textInput" placeholder="텍스트를 입력하세요...">
+                    <div>
+                        <button onclick="convertToUpperCase()">대문자</button>
+                        <button onclick="convertToLowerCase()">소문자</button>
+                    </div>
+                    <div id="textResult" class="result-box">결과가 여기에 표시됩니다</div>
+                </div>
+
+                <h3>2️⃣ 계산기 (JavaScript)</h3>
+                <div class="interactive-demo">
+                    <div class="demo-title">두 숫자를 입력하고 계산하세요</div>
+                    <input type="number" id="num1" placeholder="첫 번째 숫자" value="10">
+                    <input type="number" id="num2" placeholder="두 번째 숫자" value="5">
+                    <div>
+                        <button onclick="calculate('add')">더하기 (+)</button>
+                        <button onclick="calculate('subtract')">빼기 (-)</button>
+                        <button onclick="calculate('multiply')">곱하기 (×)</button>
+                        <button onclick="calculate('divide')">나누기 (÷)</button>
+                    </div>
+                    <div id="calcResult" class="result-box">결과: 0</div>
+                </div>
+
+                <h3>3️⃣ 색상 선택 (CSS + JavaScript)</h3>
+                <div class="interactive-demo">
+                    <div class="demo-title">색상을 선택하고 상자의 색을 변경하세요</div>
+                    <div>
+                        <label>색상 선택: </label>
+                        <input type="color" id="colorPicker" value="#667eea" onchange="changeBoxColor()">
+                    </div>
+                    <div id="colorBox" class="box-example">색상 상자</div>
+                </div>
+
+                <h3>4️⃣ 진행률 표시 (CSS Animation)</h3>
+                <div class="interactive-demo">
+                    <div class="demo-title">진행 상황을 시각화합니다</div>
+                    <input type="range" id="progressSlider" min="0" max="100" value="0" style="width: 100%; cursor: pointer;">
+                    <div class="progress-bar">
+                        <div id="progressFill" class="progress-fill" style="width: 0%;">
+                            <span id="progressText">0%</span>
+                        </div>
+                    </div>
+                    <button onclick="animateProgress()">애니메이션 시작</button>
+                </div>
+
+                <h3>5️⃣ TODO 리스트 (JavaScript DOM)</h3>
+                <div class="interactive-demo">
+                    <div class="demo-title">할 일을 추가하고 관리하세요</div>
+                    <div>
+                        <input type="text" id="todoInput" placeholder="할 일을 입력하세요...">
+                        <button onclick="addTodo()">추가</button>
+                    </div>
+                    <ul id="todoList" style="list-style: none; margin-top: 15px; padding: 0;">
+                    </ul>
+                </div>
+
+                <h3>6️⃣ 평점 매기기 (CSS + JavaScript)</h3>
+                <div class="interactive-demo">
+                    <div class="demo-title">별을 클릭하여 평점을 매기세요</div>
+                    <div class="skill-level" id="ratingStars">
+                        <span class="skill-star" onclick="setRating(1)">⭐</span>
+                        <span class="skill-star" onclick="setRating(2)">⭐</span>
+                        <span class="skill-star" onclick="setRating(3)">⭐</span>
+                        <span class="skill-star" onclick="setRating(4)">⭐</span>
+                        <span class="skill-star" onclick="setRating(5)">⭐</span>
+                    </div>
+                    <div id="ratingResult" class="result-box">평점을 선택해주세요</div>
+                </div>
+
+                <h3>7️⃣ 반응형 그리드 (CSS Grid)</h3>
+                <div class="interactive-demo">
+                    <div class="demo-title">창 크기를 조절하면 그리드가 자동으로 조정됩니다</div>
+                    <div class="grid-demo">
+                        <div class="grid-item">Item 1</div>
+                        <div class="grid-item">Item 2</div>
+                        <div class="grid-item">Item 3</div>
+                        <div class="grid-item">Item 4</div>
+                        <div class="grid-item">Item 5</div>
+                        <div class="grid-item">Item 6</div>
+                    </div>
+                </div>
+
+                <h3>8️⃣ 입력값 검증 (JavaScript)</h3>
+                <div class="interactive-demo">
+                    <div class="demo-title">이메일을 입력하고 유효성을 검사합니다</div>
+                    <input type="text" id="emailInput" placeholder="이메일을 입력하세요 (예: user@example.com)">
+                    <button onclick="validateEmail()">검증</button>
+                    <div id="emailResult" class="result-box">입력 후 검증 버튼을 클릭하세요</div>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <p><strong>🎓 웹 기초 공부 튜토리얼</strong></p>
+            <p>HTML5, CSS3, JavaScript의 기초를 배우고 실습하는 페이지입니다.</p>
+            <p style="margin-top: 20px; font-size: 0.9em; color: #999;">© 2024 Web Learning Tutorial</p>
+        </footer>
+    </div>
+
+    <script>
+        // ========== 네비게이션 기능 ==========
+        document.querySelectorAll('.nav-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const sectionId = this.dataset.section;
+                
+                // 모든 네비게이션 버튼과 섹션 비활성화
+                document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+                document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+                
+                // 클릭한 버튼과 해당 섹션 활성화
+                this.classList.add('active');
+                document.getElementById(sectionId).classList.add('active');
+            });
+        });
+
+        // ========== 1️⃣ 텍스트 변환 기능 ==========
+        function convertToUpperCase() {
+            const input = document.getElementById('textInput').value;
+            const result = input.toUpperCase();
+            document.getElementById('textResult').textContent = result || '(결과 없음)';
+        }
+
+        function convertToLowerCase() {
+            const input = document.getElementById('textInput').value;
+            const result = input.toLowerCase();
+            document.getElementById('textResult').textContent = result || '(결과 없음)';
+        }
+
+        // ========== 2️⃣ 계산기 기능 ==========
+        function calculate(operation) {
+            const num1 = parseFloat(document.getElementById('num1').value) || 0;
+            const num2 = parseFloat(document.getElementById('num2').value) || 0;
+            let result;
+
+            switch(operation) {
+                case 'add':
+                    result = num1 + num2;
+                    break;
+                case 'subtract':
+                    result = num1 - num2;
+                    break;
+                case 'multiply':
+                    result = num1 * num2;
+                    break;
+                case 'divide':
+                    result = num2 !== 0 ? num1 / num2 : '(0으로 나눌 수 없음)';
+                    break;
+            }
+
+            document.getElementById('calcResult').textContent = '결과: ' + result;
+        }
+
+        // ========== 3️⃣ 색상 선택 기능 ==========
+        function changeBoxColor() {
+            const color = document.getElementById('colorPicker').value;
+            document.getElementById('colorBox').style.backgroundColor = color;
+        }
+
+        // ========== 4️⃣ 진행률 표시 기능 ==========
+        document.getElementById('progressSlider').addEventListener('input', function() {
+            const value = this.value;
+            const fill = document.getElementById('progressFill');
+            const text = document.getElementById('progressText');
+            fill.style.width = value + '%';
+            text.textContent = value + '%';
+        });
+
+        function animateProgress() {
+            const slider = document.getElementById('progressSlider');
+            let value = 0;
+            const interval = setInterval(() => {
+                value += 2;
+                slider.value = value;
+                slider.dispatchEvent(new Event('input'));
+                
+                if (value >= 100) {
+                    clearInterval(interval);
+                }
+            }, 30);
+        }
+
+        // ========== 5️⃣ TODO 리스트 기능 ==========
+        function addTodo() {
+            const input = document.getElementById('todoInput');
+            const text = input.value.trim();
+
+            if (text === '') {
+                alert('할 일을 입력하세요!');
+                return;
+            }
+
+            const li = document.createElement('li');
+            li.style.cssText = 'padding: 12px; margin-bottom: 8px; background: #f8f9fa; border-radius: 5px; display: flex; justify-content: space-between; align-items: center;';
+            
+            const span = document.createElement('span');
+            span.textContent = text;
+            span.style.cursor = 'pointer';
+            span.addEventListener('click', function() {
+                this.style.textDecoration = this.style.textDecoration === 'line-through' ? 'none' : 'line-through';
+                this.style.color = this.style.textDecoration === 'line-through' ? '#999' : '#495057';
+            });
+
+            const deleteBtn = document.createElement('button');
+            deleteBtn.textContent = '삭제';
+            deleteBtn.style.cssText = 'padding: 5px 10px; background: #dc3545; color: white; border: none; border-radius: 3px; cursor: pointer; font-size: 0.8em;';
+            deleteBtn.addEventListener('click', function() {
+                li.remove();
+            });
+
+            li.appendChild(span);
+            li.appendChild(deleteBtn);
+            document.getElementById('todoList').appendChild(li);
+
+            input.value = '';
+            input.focus();
+        }
+
+        // Enter 키로도 추가 가능
+        document.getElementById('todoInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                addTodo();
+            }
+        });
+
+        // ========== 6️⃣ 평점 매기기 기능 ==========
+        function setRating(rating) {
+            const stars = document.querySelectorAll('.skill-star');
+            stars.forEach((star, index) => {
+                if (index < rating) {
+                    star.classList.add('active');
+                } else {
+                    star.classList.remove('active');
+                }
+            });
+            document.getElementById('ratingResult').textContent = `평점: ${rating}점 / 5점`;
+        }
+
+        // ========== 8️⃣ 이메일 검증 기능 ==========
+        function validateEmail() {
+            const email = document.getElementById('emailInput').value;
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            const resultDiv = document.getElementById('emailResult');
+
+            if (email === '') {
+                resultDiv.textContent = '이메일을 입력해주세요';
+                resultDiv.style.background = '#fff3cd';
+            } else if (emailRegex.test(email)) {
+                resultDiv.textContent = '✅ 유효한 이메일입니다!';
+                resultDiv.style.background = '#d4edda';
+                resultDiv.style.color = '#155724';
+            } else {
+                resultDiv.textContent = '❌ 유효하지 않은 이메일입니다!';
+                resultDiv.style.background = '#f8d7da';
+                resultDiv.style.color = '#721c24';
+            }
+        }
+
+        // 페이지 로드 완료 메시지
+        window.addEventListener('load', function() {
+            console.log('🎓 웹 기초 공부 튜토리얼에 오신 것을 환영합니다!');
+            console.log('브라우저 개발자 도구(F12)를 열어 콘솔에서 JavaScript를 직접 실행할 수 있습니다.');
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,24 @@
+:root{
+  --bg:#f7f7f9;
+  --card:#ffffff;
+  --accent:#2a9d8f;
+  --muted:#6c757d;
+}
+*{box-sizing:border-box}
+body{font-family:Segoe UI, Roboto, "Noto Sans KR", Arial, sans-serif;background:var(--bg);color:#222;margin:0;padding:0}
+.site-header{background:linear-gradient(90deg,#264653 0%, #2a9d8f 100%);color:#fff;padding:28px 16px;text-align:center}
+.site-header h1{margin:0;font-size:1.6rem}
+.tagline{opacity:0.9;margin-top:6px}
+.container{max-width:960px;margin:20px auto;padding:0 12px}
+.card{background:var(--card);border-radius:8px;padding:16px;margin-bottom:16px;box-shadow:0 1px 4px rgba(16,24,40,0.06)}
+h2{color:var(--accent);margin-top:0}
+.code{display:block;background:#0f1724;color:#e6edf3;padding:12px;border-radius:6px;overflow:auto}
+.btn{background:var(--accent);color:#fff;border:none;padding:8px 12px;border-radius:6px;cursor:pointer}
+.result{font-weight:600;margin-top:8px}
+.preview{border:1px dashed #ccc;padding:12px;margin-top:8px;border-radius:6px;background:#fff}
+#editor{width:100%;font-family:monospace;padding:8px;border-radius:6px}
+.site-footer{text-align:center;color:var(--muted);padding:18px 8px}
+@media (min-width:700px){
+  .container{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  .card{min-height:120px}
+}
